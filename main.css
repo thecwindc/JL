@@ -62,37 +62,34 @@ body{
 .nav{
     height: 170px;
 }
-.nav ul{
+.nav__ul{
     position: absolute;
     right: 350px;
     top:16px;
 }
-.nav ul li{
+.nav__li{
     float: left;
-}
-.nav ul li ul li {
-    float: right;
-    background: red;
+    padding: 10px 17px;
+    position: relative;
 }
 .nav ul li a{
     display: inline-block;
     text-decoration: none;
-    margin: 10px 17px;
     padding: 10px 0;
     font:700 13px "Open Sans";
     color:inherit;/*颜色继承*/
     position: relative;
 }
-.nav ul li a:hover::after{
+.nav ul li.active a::after{
     content: '';
     display: block;
     position: absolute;
-    top:100%;
+    top: 100%;
     left: 0;
     width: 100%;
     background-color: #fa6c6c;
     height: 3px;
-    animation:menuSlide 0.3s;
+    animation:menuSlide 0.4s;
 }
 @keyframes menuSlide{
     0%{
@@ -101,6 +98,32 @@ body{
     100%{
         width: 100%;
     }
+}
+.nav__li .submenu{
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    color: #3d4451;
+    padding: 20px 20px;
+    z-index: 1;
+    box-shadow:  0 0px 3px rgb(136, 136, 136); 
+}
+.nav__li.active .submenu{
+    display: block;
+    animation: a 0.4s;
+}
+@keyframes a{
+    0%{margin-right: 100%;}
+
+    100%{
+        margin-right: 0%;
+    }
+}
+.submenu > li{
+    white-space: nowrap;
+    padding: 8px 20px;
 }
 /* 导航结束 */
 .card{

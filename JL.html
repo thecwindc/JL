@@ -27,22 +27,30 @@
                                 <div class="logo">
                                         <a href="#"><span class="rs">RS</span><span class="cd">card</span></a>
                                 </div>
-            <ul>
-                <li><a href="#siteAbout">ABOUT</a></li>
-                <li><a href="#siteSkills">SKILLS</a></li>
-                <li><a href="#sitePortfolio">PORTFOLIO</a></li>
-                <li><a href="#siteExrerience">EXPERIENCE</a>
-                        <ul class="submeu">
-                                <li>作品1</li>
-                                <li>作品2</li>
-                                <li>作品3</li>
-                        </ul>
+            <ul class="nav__ul">
+                <li class="nav__li"><a href="#siteAbout">ABOUT</a></li>
+                <li class="nav__li"><a href="#siteSkills">SKILLS</a></li>
+                <li class="nav__li"><a href="#sitePortfolio">PORTFOLIO</a></li>
+                <li class='nav__li'><a href="#siteExrerience">EXPERIENCE 
+                        <ul class="submenu">
+                                <li>作品xxx</li>
+                                <li>作品xxxxxxxxx</li>
+                                <li>作品xx</li>
+                                <li>作品xxxx</li>
+                        </ul></a>    
                 </li>
-                <li><a href="#pricing">PRICING</a></li>
-                <li><a href="#blog">BLOG</a></li>
-                <li><a href="#">CALENDAR</a></li>
-                <li><a href="#">CONTACT</a></li>
-                <li><a href="#">OTHER</a></li>
+                <li class="nav__li"><a href="#pricing">PRICING</a></li>
+                <li class="nav__li"><a href="#blog">BLOG
+                        <ul class="submenu">
+                                <li>xxx</li>
+                                <li>xxxxxxxxx</li>
+                                <li>xx</li>
+                                <li>xxxx</li>
+                        </ul></a> 
+                </li>
+                <li class="nav__li"><a href="#">CALENDAR</a></li>
+                <li class="nav__li"><a href="#">CONTACT</a></li>
+                <li class="nav__li"><a href="#">OTHER</a></li>
             </ul>
                 </div>  
         </div>
@@ -204,15 +212,27 @@
                         stick.classList.remove('active')
                 }console.log(scrollY)
         }
+
+
+        let liTags = document.getElementsByClassName('nav__li')
+        for(let i=0; i<liTags.length;i++){
+                liTags[i].onmouseenter = function(x){
+                        x.currentTarget.classList.add('active') 
+                }
+                
+                liTags[i].onmouseleave = function(x){
+                        x.currentTarget.classList.remove('active')
+                }
+        }
         let  aTags = document.querySelectorAll('.stick > ul > li > a')
                 for(let i=0;i<aTags.length;i++){
                         aTags[i].onclick = function(x){
                                 x.preventDefault()//阻止默认动作
                                 let a = x.currentTarget
                                 let href=a.getAttribute('href')
-                                let element = document.querySelector(href)
-                                console.log(element)
-                                
+                                let element = document.querySelector(href) 
+                                let top = element.offsetTop
+                                window.scrollTo(0,top - 80)
                         }
                 }
 </script>
