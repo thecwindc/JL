@@ -13,6 +13,15 @@ h1,h2,h3,h4,h5,h6{
     clear: both;
     line-height:0;
 }
+[data-x].offset{
+    transform: translateY(100px);
+    opacity:0;
+}
+[data-x]{
+    transform: translateY(0);
+    transition: all 0.5s;
+    opacity: 1;
+}
 ul,ol{
     list-style: none;
 }
@@ -80,7 +89,8 @@ body{
     color:inherit;/*颜色继承*/
     position: relative;
 }
-.nav ul li.active a::after{
+.nav ul li.active a::after,
+.nav ul li.highlight a::after{
     content: '';
     display: block;
     position: absolute;
@@ -112,19 +122,20 @@ body{
 }
 .nav__li.active .submenu{
     display: block;
-    animation: a 0.4s;
+    animation: a 0.3s linear;
 }
 @keyframes a{
-    0%{margin-right: 100%;}
+    0%{margin-right: 50px;opacity: 0;}
 
     100%{
-        margin-right: 0%;
+        margin-right: 0%; opacity:1;
     }
 }
 .submenu > li{
     white-space: nowrap;
     padding: 8px 20px;
 }
+
 /* 导航结束 */
 .card{
     position: relative;
@@ -302,11 +313,17 @@ body{
     background-color: rgb(250,225,225);
     height: 5px;
     border-radius: 5px;
+    overflow: hidden;
 }
 .skills .progressbar .progress{
     border-radius: 5px;
     height: 100%;
     background-color: #e8676b;
+    transform: translateX(0);
+    transition: all 0.6s;
+}
+.skills.offset .progressbar .progress{
+    transform: translateX(-100%);
 }
 .skills .progressbar .p1{
     width: 70%;

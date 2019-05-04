@@ -56,7 +56,7 @@
         </div>
  
 <!-- 导航结束 -->
-        <div id='siteAbout'class="card">
+        <div data-x id='siteAbout'class="card">
             <div class="ph">
                <img src="./image/photo.jpg" alt="照片">
             </div>  
@@ -123,7 +123,7 @@
     <p class="selfIntroduction">
                 你好！ 我是常健玮。 专门从事前端开发的Web开发人员。 在动态Web项目的开发周期的所有阶段都有经验。 熟悉众多编程语言，包括JavaScript，SQL和C. Stng项目管理和客户关系背景。
     </p>
-    <section id='siteSkills'class="skills">
+    <section data-x id='siteSkills'class="skills">
     <h2>专业技能</h2>
     <ol class="clearfix">
             <li>
@@ -164,7 +164,7 @@
             </li>
     </ol>
 </section>
-<section id='sitePortfolio'class="portfolio">
+<section data-x id='sitePortfolio'class="portfolio">
         <h2>作品集</h2>
         <nav>
                 <ol>
@@ -200,20 +200,53 @@
         </div>
 </section>
 </body>
+<!-- 引入缓动库 -->
+<script src = 'https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.3.0/Tween.min.js'></script>
+
 <script>
+        
         // setTimeout(function() {
-                awelcome.classList.remove('active')
+                awelcome.classList.remove('active')//页面加载动画
         // }, 2000);
-        window.onscroll = function(){
+
+        let markTags = document.querySelectorAll('[data-x]')
+                for(let i=0;i<markTags.length;i++){
+                       markTags[i].classList.add('offset')
+                }
+        y()
+        //导航跟随
+        window.onscroll = function(x){
                 
                 if(window.scrollY>0){
                         stick.classList.add('active')
                 }else{
                         stick.classList.remove('active')
-                }console.log(scrollY)
+                }
+                y()   
         }
+               
+                //指定位置导航高亮
+                function y(){
+                let minIndex = 0
+                let markTags = document.querySelectorAll('[data-x]')
+                for(let i=1;i<markTags.length;i++){
+                        if(Math.abs(markTags[i].offsetTop - window.scrollY) < Math.abs(markTags[minIndex].offsetTop - window.scrollY )){
+                                minIndex = i
+                        }  
+                }
+                markTags[minIndex].classList.remove('offset')
+                let id = markTags[minIndex].id
+                let a = document.querySelector('a[href="#'+ id +'"]')
+                let li = a.parentNode
+                let borthersAndMe = li.parentNode.children
+                for(let i=0;i<borthersAndMe.length;i++){
+                        borthersAndMe[i].classList.remove('highlight')
+                }
+                li.classList.add('highlight')
+                }
+       
 
-
+        //鼠标移入导航的效果
         let liTags = document.getElementsByClassName('nav__li')
         for(let i=0; i<liTags.length;i++){
                 liTags[i].onmouseenter = function(x){
@@ -224,6 +257,7 @@
                         x.currentTarget.classList.remove('active')
                 }
         }
+        //定位
         let  aTags = document.querySelectorAll('.stick > ul > li > a')
                 for(let i=0;i<aTags.length;i++){
                         aTags[i].onclick = function(x){
@@ -232,7 +266,27 @@
                                 let href=a.getAttribute('href')
                                 let element = document.querySelector(href) 
                                 let top = element.offsetTop
-                                window.scrollTo(0,top - 80)
+
+                                // //定位滑动
+                                function animate(time) {
+                                requestAnimationFrame(animate);
+                                TWEEN.update(time);
+                                }
+                                requestAnimationFrame(animate);
+                                
+                                let currentTop = window.scrollY
+                                let targetTop = top - 80
+                                let s = targetTop - currentTop
+                                var t = Math.abs((s/100)*300)
+                                if(t>500){t=500}
+                                var coords = {  y: currentTop}; //起始位置
+                                var tween = new TWEEN.Tween(coords) 
+                                        .to({  y: targetTop },t) 
+                                        .easing(TWEEN.Easing.Cubic.InOut) //缓动函数
+                                        .onUpdate(function() {
+                                                window.scrollTo(0,coords.y)
+                                        })
+                                        .start();
                         }
                 }
 </script>
